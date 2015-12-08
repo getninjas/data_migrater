@@ -17,7 +17,7 @@ rake db:migrate
 ## Usage
 
 ```bash
-rails g data_migrater:data_migration name
+rails g data_migrater:create name
 ```
 
 Check your `db/data_migrate` folder.
