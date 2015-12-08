@@ -15,7 +15,8 @@ module DataMigrater
       return false unless data_migration.valid?
 
       begin
-        migration.execute if data_migration.save!
+        data_migration.save!
+        migration.execute
       rescue => e
         data_migration.destroy
 
