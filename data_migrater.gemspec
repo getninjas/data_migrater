@@ -17,9 +17,11 @@ Gem::Specification.new do |spec|
   spec.test_files  = Dir.glob("{spec}/**/*")
   spec.version     = DataMigrater::VERSION.dup
 
+  spec.add_dependency 'activerecord'
+  spec.add_dependency 'railties'
+
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'pry-byebug'
-  spec.add_development_dependency 'rails'
   spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'sqlite3'
 end

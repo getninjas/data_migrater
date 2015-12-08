@@ -2,7 +2,7 @@ ENV['RAILS_ENV'] ||= 'test'
 
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 
-require 'rails/all'
+require 'active_record/railtie'
 require 'data_migrater'
 require 'pry-byebug'
 
