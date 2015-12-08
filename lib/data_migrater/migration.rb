@@ -17,7 +17,7 @@ module DataMigrater
       begin
         data_migration.save!
         migration.execute
-      rescue => e
+      rescue StandardError => e
         data_migration.destroy
 
         raise e
