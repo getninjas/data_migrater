@@ -5,7 +5,6 @@ $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'rails/all'
 require 'data_migrater'
 require 'pry-byebug'
-require 'shoulda/matchers'
 
 ActiveRecord::Base.establish_connection adapter: 'sqlite3', database: ':memory:'
 

@@ -43,10 +43,8 @@ GEM
       tzinfo (~> 1.1)
     arel (6.0.3)
     builder (3.2.2)
-    byebug (5.0.0)
-      columnize (= 0.9.0)
+    byebug (8.2.1)
     coderay (1.1.0)
-    columnize (0.9.0)
     concurrent-ruby (1.0.0)
     diff-lcs (1.2.5)
     erubis (2.7.0)
@@ -64,12 +62,12 @@ GEM
     minitest (5.8.3)
     nokogiri (1.6.7)
       mini_portile2 (~> 2.0.0.rc2)
-    pry (0.10.1)
+    pry (0.10.3)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
-    pry-byebug (3.2.0)
-      byebug (~> 5.0)
+    pry-byebug (3.3.0)
+      byebug (~> 8.0)
       pry (~> 0.10)
     rack (1.6.4)
     rack-test (0.6.3)
@@ -112,8 +110,6 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.4.0)
     rspec-support (3.4.1)
-    shoulda-matchers (2.7.0)
-      activesupport (>= 3.0.0)
     slop (3.6.0)
     sprockets (3.5.1)
       concurrent-ruby (~> 1.0)
@@ -137,7 +133,6 @@ DEPENDENCIES
   pry-byebug
   rails
   rspec
-  shoulda-matchers
   sqlite3
 
 BUNDLED WITH
