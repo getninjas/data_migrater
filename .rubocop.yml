@@ -1,0 +1,10 @@
+require: rubocop-rspec
+
+AllCops:
+  Exclude:
+    - bin/*
+
+  RunRailsCops: true
+
+Style/Documentation:
+  Enabled: false
