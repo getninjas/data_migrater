@@ -30,6 +30,38 @@ rails g data_migrater:create name
 Check your `db/data_migrate` folder, the data migration will be there.
 Next time your application run, all pending data migration will be execute.
 
+## Custom Logger
+
+You can send your log to a file including the module `DataMigrater::Logger`.
+
+```
+class MyDataMigration
+  include DataMigrater::Logger
+
+  def execute
+    logger.info "going to log/my_data_migration.log"
+  end
+end
+```
+
+By default, the class name is used and the file goes to `log` folder. You can change it:
+
+```
+class MyDataMigration
+  include DataMigrater::Logger
+
+  data_logger path: "db/data_migrate/log/global.log"
+
+  def execute
+    logger.info "going to db/data_migrate/log/global.log"
+  end
+end
+```
+
+#### Options
+
+`path`: Where the log will be written.
+
 ## Test
 
 Before send pull request, check if specs is passing.
