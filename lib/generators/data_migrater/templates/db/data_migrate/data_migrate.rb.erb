@@ -1,4 +1,11 @@
 class <%= name.camelize %>
+  include DataMigrater::Logger
+
   def execute
+    logger.info "starting..."
+
+    # your data migration here...
+
+    logger.info "done!"
   end
 end
