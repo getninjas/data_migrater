@@ -8,14 +8,14 @@ Gem::Specification.new do |spec|
   spec.author      = "GetNinjas"
   spec.description = 'Generates Data Migrations on Migrate style.'
   spec.email       = "tech@getninjas.com.br"
-  spec.files       = Dir.glob("{lib}/**/*") + %w[CHANGELOG.md LICENSE README.md]
+  spec.files       = Dir["lib/**/*"] + %w[CHANGELOG.md LICENSE README.md]
   spec.homepage    = 'https://github.com/getninjas/data_migrater'
   spec.license     = 'MIT'
   spec.name        = 'data_migrater'
   spec.platform    = Gem::Platform::RUBY
   spec.summary     = 'A Data Migrator gem'
-  spec.test_files  = Dir.glob("{spec}/**/*")
-  spec.version     = DataMigrater::VERSION.dup
+  spec.test_files  = Dir["spec/**/*"]
+  spec.version     = DataMigrater::VERSION
 
   spec.add_dependency 'activerecord'
   spec.add_dependency 'railties'
@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'guard-rspec'
   spec.add_development_dependency 'rspec'
-  spec.add_development_dependency 'rubocop'
   spec.add_development_dependency 'rubocop-rspec'
+  spec.add_development_dependency 'rubocop'
   spec.add_development_dependency 'sqlite3'
 end
