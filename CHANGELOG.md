@@ -1,3 +1,7 @@
+# 0.2.0
+
+- Added support for custom logger.
+
 # 0.1.1
 
 - Fixed `require` name on `bin` script.
