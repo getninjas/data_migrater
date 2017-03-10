@@ -15,6 +15,10 @@ module DataMigrater
 
       private
 
+      def default_path
+        "log/#{self.class.name.underscore}.log"
+      end
+
       def formatter
         -> (severity, datetime, _progname, message) do
           "[#{datetime}] #{severity} #{self.class.name}: #{message}\n"
@@ -26,7 +30,9 @@ module DataMigrater
       end
 
       def path
-        options[:path] || "log/#{self.class.name.underscore}.log"
+        return default_path unless options
+
+        options.fetch :path, default_path
       end
     end
 
