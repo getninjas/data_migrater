@@ -36,7 +36,7 @@ RSpec.describe "#csv_path" do
     end
 
     it "uses the given :file on path" do
-      expect(Dummy.new.csv_path).to eq "data_migrater/support/csv/file.odd"
+      expect(Dummy.new.csv_path).to eq "db/data_migrate/support/csv/file.odd"
     end
   end
 
@@ -62,7 +62,7 @@ RSpec.describe "#csv_path" do
     end
 
     it "uses the default :dir and :file as path" do
-      expect(Dummy.new.csv_path).to eq "data_migrater/support/csv/dummy.csv"
+      expect(Dummy.new.csv_path).to eq "db/data_migrate/support/csv/dummy.csv"
     end
   end
 
@@ -74,7 +74,7 @@ RSpec.describe "#csv_path" do
     end
 
     it "uses the default :dir and :file as path" do
-      expect(Dummy.new.csv_path).to eq "data_migrater/support/csv/dummy.csv"
+      expect(Dummy.new.csv_path).to eq "db/data_migrate/support/csv/dummy.csv"
     end
   end
 end

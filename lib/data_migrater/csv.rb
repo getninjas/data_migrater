@@ -20,7 +20,7 @@ module DataMigrater
       private
 
       def csv_dir
-        csv_options.delete(:dir) || "data_migrater/support/csv"
+        csv_options.delete(:dir) || "db/data_migrate/support/csv"
       end
 
       def csv_file
