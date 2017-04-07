@@ -19,6 +19,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'activerecord'
   spec.add_dependency 'railties'
+  spec.add_dependency 'smarter_csv'
 
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'guard-rspec'
