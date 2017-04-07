@@ -24,9 +24,7 @@ describe DataMigrater::Migrator do
     let(:select)          { 'select version from data_migrations' }
     let(:version)         { lambda { connection.select_one(select)['version'] } }
 
-    before do
-      connection.insert_sql insert
-    end
+    before { connection.insert insert }
 
     context 'when has no pending migration' do
       context 'when data migration table does not exists' do
