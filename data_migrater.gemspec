@@ -17,9 +17,9 @@ Gem::Specification.new do |spec|
   spec.test_files  = Dir["spec/**/*"]
   spec.version     = DataMigrater::VERSION
 
-  spec.add_dependency 'activerecord'
-  spec.add_dependency 'railties'
-  spec.add_dependency 'smarter_csv'
+  spec.add_dependency 'activerecord', '~> 4.1.14'
+  spec.add_dependency 'railties'    , '~> 4.1.14'
+  spec.add_dependency 'smarter_csv' , '~> 1.1'
 
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'guard-rspec'

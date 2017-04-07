@@ -32,7 +32,7 @@ module DataMigrater
       end
     end
 
-    class_methods do
+    module ClassMethods
       def data_csv(options = {})
         @options = options
       end

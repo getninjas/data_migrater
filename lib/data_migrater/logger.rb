@@ -40,7 +40,7 @@ module DataMigrater
       end
     end
 
-    class_methods do
+    module ClassMethods
       def data_logger(options = {})
         @options = options
       end
