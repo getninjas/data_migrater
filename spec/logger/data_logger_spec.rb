@@ -10,7 +10,7 @@ RSpec.describe "#data_logger" do
     end
 
     after :suite do
-      delete :dummy
+      delete "dummy.log"
     end
 
     subject { Dummy.new }
