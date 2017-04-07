@@ -12,6 +12,8 @@ module DataMigrater
       end
 
       def csv_path
+        return csv_options[:path] if csv_options[:path].present?
+
         [csv_dir, csv_file].join "/"
       end
 

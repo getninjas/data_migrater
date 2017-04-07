@@ -6,11 +6,11 @@ RSpec.describe "#csv_path" do
       stub_const "Dummy", Class.new
 
       Dummy.class_eval { include DataMigrater::CSV }
-      Dummy.class_eval { data_csv path: "spec/support/csv/custom.csv" }
+      Dummy.class_eval { data_csv path: "/tmp/custom.csv" }
     end
 
     it "uses the given one" do
-      expect(Dummy.new.csv_path).to eq "data_migrater/support/csv/dummy.csv"
+      expect(Dummy.new.csv_path).to eq "/tmp/custom.csv"
     end
   end
 
