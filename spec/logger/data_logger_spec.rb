@@ -9,10 +9,6 @@ RSpec.describe "#data_logger" do
       Dummy.class_eval { data_logger path: "custom.log" }
     end
 
-    after :suite do
-      delete "dummy.log"
-    end
-
     subject { Dummy.new }
 
     it "logs on the given path file with right content" do
