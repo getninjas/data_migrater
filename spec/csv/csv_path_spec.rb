@@ -65,4 +65,16 @@ RSpec.describe "#csv_path" do
       expect(Dummy.new.csv_path).to eq "data_migrater/support/csv/dummy.csv"
     end
   end
+
+  context "with no callback options method" do
+    before do
+      stub_const "Dummy", Class.new
+
+      Dummy.class_eval { include DataMigrater::CSV }
+    end
+
+    it "uses the default :dir and :file as path" do
+      expect(Dummy.new.csv_path).to eq "data_migrater/support/csv/dummy.csv"
+    end
+  end
 end
