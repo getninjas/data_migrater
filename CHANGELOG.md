@@ -1,6 +1,8 @@
 # 0.3.0
 
-- Added support for CSV.
+- Added support for CSV;
+- Added options `dir` to specify the directory on Logger;
+- Added options `file` to specify the Logger file name.
 
 # 0.2.0
 
