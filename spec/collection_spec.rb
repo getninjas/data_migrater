@@ -11,16 +11,14 @@ describe DataMigrater::Collection do
     allow(Rails).to receive(:root) { '.' }
   end
 
-  after do
-    FileUtils.rm_rf 'db'
-  end
+  after { FileUtils.rm_rf 'db' }
 
   describe '.migrations' do
-    let(:file_1) { '20151205090800_add_column' }
-    let(:file_2) { '20151205090801_rename_column' }
-    let(:file_3) { 'invalid_20151205090802_remove_column' }
-
     subject { described_class.new path }
+
+    let!(:file_1) { '20151205090800_add_column' }
+    let!(:file_2) { '20151205090801_rename_column' }
+    let!(:file_3) { 'invalid_20151205090802_remove_column' }
 
     before do
       FileUtils.touch "#{path}/#{file_1}.rb"
