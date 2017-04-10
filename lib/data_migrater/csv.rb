@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module DataMigrater
   module CSV
     extend ActiveSupport::Concern
 
-    require "smarter_csv"
+    require 'smarter_csv'
 
     included do
       def csv
@@ -14,13 +16,13 @@ module DataMigrater
       def csv_path
         return csv_options[:path] if csv_options[:path].present?
 
-        [csv_dir, csv_file].join "/"
+        [csv_dir, csv_file].join '/'
       end
 
       private
 
       def csv_dir
-        csv_options.delete(:dir) || "db/data_migrate/support/csv"
+        csv_options.delete(:dir) || 'db/data_migrate/support/csv'
       end
 
       def csv_file

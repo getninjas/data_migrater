@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe DataMigrater::Migrator do
@@ -22,12 +24,14 @@ describe DataMigrater::Migrator do
     let(:data_migrations) { [data_migration] }
     let(:insert)          { "insert into data_migrations(version) values('21161023010203')" }
     let(:select)          { 'select version from data_migrations' }
-    let(:version)         { lambda { connection.select_one(select)['version'] } }
+    let(:version)         { -> { connection.select_one(select)['version'] } }
 
     before { connection.insert insert }
 
     context 'when has no pending migration' do
       context 'when data migration table does not exists' do
+        subject { described_class.new collection }
+
         let(:data_migration) { double }
         let(:collection)     { double migrations: [data_migration] }
 
@@ -35,10 +39,8 @@ describe DataMigrater::Migrator do
           allow(DataMigration).to receive(:table_exists?) { false }
         end
 
-        subject { described_class.new collection }
-
         it 'does not executes data migration' do
-          expect(data_migration).to_not receive :execute
+          expect(data_migration).not_to receive :execute
 
           subject.migrate
         end
@@ -46,11 +48,11 @@ describe DataMigrater::Migrator do
 
       context 'when data migration table exists' do
         context 'but there is no data migration on collection' do
-          let(:collection) { double migrations: [] }
-
           subject { described_class.new collection }
 
-          it { expect { subject.migrate }.to_not change { version.call } }
+          let(:collection) { double migrations: [] }
+
+          it { expect { subject.migrate }.not_to change { version.call } }
         end
 
         context 'and has data migration on collection' do
@@ -93,7 +95,7 @@ describe DataMigrater::Migrator do
         after  { FileUtils.rm next_migration }
 
         it 'does not run the data migrations' do
-          expect(data_migration).to_not receive :execute
+          expect(data_migration).not_to receive :execute
 
           described_class.new(collection).migrate
         end

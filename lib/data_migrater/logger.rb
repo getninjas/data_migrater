@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DataMigrater
   module Logger
     extend ActiveSupport::Concern
@@ -16,13 +18,13 @@ module DataMigrater
       def logger_path
         return logger_options[:path] if logger_options[:path].present?
 
-        [logger_dir, logger_file].join "/"
+        [logger_dir, logger_file].join '/'
       end
 
       private
 
       def formatter
-        -> (severity, datetime, _progname, message) do
+        lambda do |severity, datetime, _progname, message|
           "[#{datetime}] #{severity} #{self.class.name}: #{message}\n"
         end
       end

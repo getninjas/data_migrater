@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DataMigrater
   class Migration
     attr_reader :version, :name, :filename

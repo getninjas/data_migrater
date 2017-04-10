@@ -4,7 +4,8 @@ AllCops:
   Exclude:
     - bin/*
 
-  RunRailsCops: true
-
 Style/Documentation:
+  Enabled: false
+
+Style/NumericLiterals:
   Enabled: false

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DataMigrater
   class Collection
     def initialize(path = "#{Rails.root}/db/data_migrate")
@@ -14,7 +16,7 @@ module DataMigrater
 
     def migration_for(file)
       if file =~ migration_pattern
-        DataMigrater::Migration.new $1.to_i, $2, "#{$1}_#{$2}"
+        DataMigrater::Migration.new Regexp.last_match(1).to_i, Regexp.last_match(2), "#{Regexp.last_match(1)}_#{Regexp.last_match(2)}"
       end
     end
 
