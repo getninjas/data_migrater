@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 module DataMigrater
   class CreateGenerator < Rails::Generators::Base
     source_root File.expand_path('../templates', __FILE__)
 
     argument :name, type: :string
 
-    desc "create a skeleton data migration."
+    desc 'create a skeleton data migration.'
 
     def create_migrate_file
       tmpl    = 'db/data_migrate/data_migrate.rb.erb'

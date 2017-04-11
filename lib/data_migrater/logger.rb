@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DataMigrater
   module Logger
     extend ActiveSupport::Concern
@@ -6,43 +8,47 @@ module DataMigrater
       def logger
         return @logger if @logger
 
-        @logger = ::Logger.new(path)
+        @logger = ::Logger.new(logger_path)
 
         @logger.formatter = formatter
 
         @logger
       end
 
-      private
+      def logger_path
+        return logger_options[:path] if logger_options[:path].present?
 
-      def default_path
-        "log/#{self.class.name.underscore}.log"
+        [logger_dir, logger_file].join '/'
       end
 
+      private
+
       def formatter
-        -> (severity, datetime, _progname, message) do
+        lambda do |severity, datetime, _progname, message|
           "[#{datetime}] #{severity} #{self.class.name}: #{message}\n"
         end
       end
 
-      def options
-        self.class.options
+      def logger_dir
+        logger_options.delete(:dir) || :log
       end
 
-      def path
-        return default_path unless options
+      def logger_file
+        logger_options.delete(:file) || "#{self.class.name.underscore}.log"
+      end
 
-        options.fetch :path, default_path
+      def logger_options
+        self.class.logger_options
       end
     end
 
-    class_methods do
+    module ClassMethods
       def data_logger(options = {})
         @options = options
       end
 
-      def options
-        @options
+      def logger_options
+        @options || {}
       end
     end
   end

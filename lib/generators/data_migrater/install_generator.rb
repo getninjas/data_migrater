@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module DataMigrater
   class InstallGenerator < Rails::Generators::Base
     source_root File.expand_path('../templates', __FILE__)
 
-    desc "creates an initializer and copy necessary files."
+    desc 'creates an initializer and copy necessary files.'
 
     def create_data_folder
       FileUtils.mkdir_p 'db/data_migrate'

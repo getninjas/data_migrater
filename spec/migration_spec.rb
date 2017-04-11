@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe DataMigrater::Migration do
@@ -18,10 +20,10 @@ describe DataMigrater::Migration do
     FileUtils.rm_rf 'db'
   end
 
-  describe "#execute" do
-    let(:migration) { double.as_null_object }
-
+  describe '#execute' do
     subject { described_class.new version, name, filename, path }
+
+    let(:migration) { double.as_null_object }
 
     before do
       allow(AddColumnToUsersTable).to receive(:new) { migration }
@@ -32,10 +34,10 @@ describe DataMigrater::Migration do
         DataMigration.create version: version
       end
 
-      specify { expect(subject.execute).to be_falsy }
+      specify { expect(subject.execute).to eq false }
 
       it 'does not executes' do
-        expect(migration).to_not receive :execute
+        expect(migration).not_to receive :execute
 
         subject.execute
       end
@@ -51,7 +53,7 @@ describe DataMigrater::Migration do
       it 'creates a new data_migrations' do
         subject.execute
 
-        expect(DataMigration.exists? version: version).to be_truthy
+        expect(DataMigration.exists?(version: version)).to eq true
       end
 
       context 'and some error is raised' do
@@ -65,7 +67,7 @@ describe DataMigrater::Migration do
           begin
             subject.execute
           rescue
-            expect(DataMigration.exists? version: version).to be_falsy
+            expect(DataMigration.exists?(version: version)).to eq false
           end
         end
       end

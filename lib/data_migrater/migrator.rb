@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DataMigrater
   class Migrator
     def initialize(collection = DataMigrater::Collection.new)
