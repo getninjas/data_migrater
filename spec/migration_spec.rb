@@ -34,7 +34,7 @@ describe DataMigrater::Migration do
         DataMigration.create version: version
       end
 
-      specify { expect(subject.execute).to be_falsy }
+      specify { expect(subject.execute).to eq false }
 
       it 'does not executes' do
         expect(migration).not_to receive :execute
@@ -53,7 +53,7 @@ describe DataMigrater::Migration do
       it 'creates a new data_migrations' do
         subject.execute
 
-        expect(DataMigration.exists?(version: version)).to be_truthy
+        expect(DataMigration.exists?(version: version)).to eq true
       end
 
       context 'and some error is raised' do
@@ -67,7 +67,7 @@ describe DataMigrater::Migration do
           begin
             subject.execute
           rescue
-            expect(DataMigration.exists?(version: version)).to be_falsy
+            expect(DataMigration.exists?(version: version)).to eq false
           end
         end
       end
