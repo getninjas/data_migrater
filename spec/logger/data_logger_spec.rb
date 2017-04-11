@@ -16,7 +16,7 @@ RSpec.describe '#data_logger' do
     it 'logs on the given path file with right content' do
       subject.logger.info 'done!'
 
-      result = /\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} -\d{4}\] INFO Dummy: done!\n/
+      result = /\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} (-|\+)\d{4}\] INFO Dummy: done!\n/
 
       expect(File.readlines('custom.log').last).to match result
     end
@@ -35,7 +35,7 @@ RSpec.describe '#data_logger' do
     it 'logs on log folder with class name with right content' do
       subject.logger.info 'done!'
 
-      result = /\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} -\d{4}\] INFO Dummy: done!\n/
+      result = /\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} (-|\+)\d{4}\] INFO Dummy: done!\n/
 
       expect(File.readlines('log/dummy.log').last).to match result
     end
@@ -53,7 +53,7 @@ RSpec.describe '#data_logger' do
     it 'logs on log folder with class name with right content' do
       subject.logger.info 'done!'
 
-      result = /\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} -\d{4}\] INFO Dummy: done!\n/
+      result = /\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} (-|\+)\d{4}\] INFO Dummy: done!\n/
 
       expect(File.readlines('log/dummy.log').last).to match result
     end
