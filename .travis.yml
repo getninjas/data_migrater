@@ -7,6 +7,4 @@ sudo: false
 
 cache: bundler
 
-before_script: bundle install --no-deployment --path vendor/bundle
-
 script: RAILS_ENV=test bundle exec rspec spec
