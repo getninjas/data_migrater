@@ -1,3 +1,8 @@
+# 0.4.0
+
+- Add Rails 5 support;
+- Bump Ruby until 2.4.1.
+
 # 0.3.0
 
 - Added support for CSV;
