@@ -2,9 +2,10 @@ PATH
   remote: .
   specs:
     data_migrater (0.4.0)
-      activerecord (>= 4, < 6)
-      railties (>= 4, < 6)
-      smarter_csv (~> 1)
+      activerecord (>= 4.1, < 6)
+      aws-sdk (~> 2.9)
+      railties (>= 4.1, < 6)
+      smarter_csv (~> 1.1)
 
 GEM
   remote: https://rubygems.org/
@@ -35,6 +36,14 @@ GEM
       tzinfo (~> 1.1)
     arel (8.0.0)
     ast (2.3.0)
+    aws-sdk (2.9.17)
+      aws-sdk-resources (= 2.9.17)
+    aws-sdk-core (2.9.17)
+      aws-sigv4 (~> 1.0)
+      jmespath (~> 1.0)
+    aws-sdk-resources (2.9.17)
+      aws-sdk-core (= 2.9.17)
+    aws-sigv4 (1.0.0)
     builder (3.2.3)
     byebug (9.0.6)
     coderay (1.1.1)
@@ -58,6 +67,7 @@ GEM
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
     i18n (0.8.1)
+    jmespath (1.3.1)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -149,11 +159,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bundler
   data_migrater!
   guard-rspec
   pry-byebug
-  rspec
   rspec-rails
   rubocop
   rubocop-rspec

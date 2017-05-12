@@ -7,16 +7,16 @@ module DataMigrater
     require 'smarter_csv'
 
     included do
-      def csv
-        result = ::SmarterCSV.process(csv_path, csv_options)
+      def csv(processor: ::SmarterCSV)
+        return s3.download(processor: processor) if csv_s3?
 
-        result
+        processor.process csv_path, csv_options
       end
 
       def csv_path
         return csv_options[:path] if csv_options[:path].present?
 
-        [csv_dir, csv_file].join '/'
+        @csv_path ||= [csv_dir, csv_file].join('/')
       end
 
       private
@@ -31,6 +31,18 @@ module DataMigrater
 
       def csv_options
         self.class.csv_options
+      end
+
+      def csv_s3?
+        csv_path.to_s == 's3'
+      end
+
+      def csv_tmp_dir
+        csv_options.delete(:tmp_dir) || '/tmp'
+      end
+
+      def s3
+        DataMigrater::S3.new file: csv_file, tmp_dir: csv_tmp_dir
       end
     end
 

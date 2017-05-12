@@ -7,9 +7,9 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'data_migrater/version'
 
 Gem::Specification.new do |spec|
-  spec.author      = 'GetNinjas'
+  spec.authors     = ['Washington Botelho', 'GetNinjas']
   spec.description = 'Generates Data Migrations on Migrate style.'
-  spec.email       = 'tech@getninjas.com.br'
+  spec.email       = ['wbotelhos@gmail.com', 'tech@getninjas.com.br']
   spec.files       = Dir['lib/**/*'] + %w[CHANGELOG.md LICENSE README.md]
   spec.homepage    = 'https://github.com/getninjas/data_migrater'
   spec.license     = 'MIT'
@@ -19,15 +19,14 @@ Gem::Specification.new do |spec|
   spec.test_files  = Dir['spec/**/*']
   spec.version     = DataMigrater::VERSION
 
-  spec.add_dependency 'activerecord', '>= 4', '< 6'
-  spec.add_dependency 'railties', '>= 4', '< 6'
-  spec.add_dependency 'smarter_csv', '~> 1'
+  spec.add_dependency 'activerecord', '>= 4.1', '< 6'
+  spec.add_dependency 'railties',     '>= 4.1', '< 6'
+  spec.add_dependency 'smarter_csv',  '~> 1.1'
+  spec.add_dependency 'aws-sdk',      '~> 2.9'
 
-  spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'guard-rspec'
   spec.add_development_dependency 'pry-byebug'
   spec.add_development_dependency 'rspec-rails'
-  spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'rubocop-rspec'
   spec.add_development_dependency 'rubocop'
   spec.add_development_dependency 'sqlite3'

@@ -9,3 +9,7 @@ require 'pry-byebug'
 ActiveRecord::Base.establish_connection adapter: 'sqlite3', database: ':memory:'
 
 Dir[File.expand_path('support/**/*.rb', __dir__)].each { |file| require file }
+
+def local_path
+  "#{File.expand_path(__dir__)}/support/local"
+end
