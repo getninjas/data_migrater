@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-
 module DataMigrater
   class S3
     require 'aws-sdk'

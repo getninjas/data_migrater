@@ -3,12 +3,12 @@
 require 'spec_helper'
 
 RSpec.describe DataMigrater::S3, '.download' do
+  subject { described_class.new file: 'dummy.csv' }
+
   let!(:client)    { double(Aws::S3).as_null_object }
   let!(:file_open) { double(File).as_null_object }
   let!(:processor) { double.as_null_object }
   let!(:temp_file) { double(File).as_null_object }
-
-  subject { described_class.new file: 'dummy.csv' }
 
   before do
     allow(Aws::S3::Client).to receive(:new) { client }
