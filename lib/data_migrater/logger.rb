@@ -44,11 +44,11 @@ module DataMigrater
 
     module ClassMethods
       def data_logger(options = {})
-        @options = options
+        @logger_options = options
       end
 
       def logger_options
-        @options || {}
+        @logger_options || {}
       end
     end
   end
