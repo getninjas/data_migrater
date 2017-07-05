@@ -1,5 +1,8 @@
 # Data Migrater
 
+[![Build Status](https://travis-ci.org/getninjas/data_migrater.svg)](https://travis-ci.org/getninjas/data_migrater)
+[![Gem Version](https://badge.fury.io/rb/data_migrater.svg)](https://badge.fury.io/rb/data_migrater)
+
 Data Migration is like Migrate, but it will changes the data of your tables,
 not your schema. This gems creates a file where you can write code to make
 change along you schema changes.
@@ -87,7 +90,7 @@ By default, the class name is used and the file is parsed from `db/data_migrate/
 class MyDataMigration
   include DataMigrater::CSV
 
-  data_csv path: "/tmp/objects.csv"
+  data_csv path: '/tmp/objects.csv'
 
   def execute
     # parsed from `/tmp/objects.csv`
@@ -152,18 +155,79 @@ end
 
 For more CSV options, check the project [Smarter CSV](https://github.com/tilo/smarter_csv):
 
-## Test
+## S3
 
-Before send pull request, check if specs is passing.
+You can download your CSV directly from [Amazon S3](https://aws.amazon.com/s3) using the module `DataMigrater::S3`.
+You *must* keep the path as `:s3` to change the download from local by S3.
 
-```bash
-rspec spec
+```
+class MyDataMigration
+  include DataMigrater::S3
+
+  data_csv path: :s3
+
+  def execute
+    # downloaded from `s3:data-migrater/my_data_migration.csv`
+    csv.each do |line|
+      Object.create! line
+    end
+  end
+end
 ```
 
-## Code Style
+By default, the class name is used as the file name in `underscore` style: `my_data_migration.csv`. You can change it:
 
-And check if the code style is good.
-
-```bash
-rubocop --debug --display-cop-names
 ```
+class MyDataMigration
+  include DataMigrater::CSV
+
+  data_csv path: :s3, file: :file_name
+
+  def execute
+    # downloaded from `s3:data-migrater/file_name.csv`
+    csv.each do |line|
+      Object.create! line
+    end
+  end
+end
+```
+
+By default, the bucket name is `data-migrater`, to change it, just declare the `bucket` options:
+
+```
+class MyDataMigration
+  include DataMigrater::CSV
+
+  data_csv path: :s3, bucket: 'bucket-name'
+
+  def execute
+    # downloaded from `s3:bucket-name/my_data_migration.csv`
+    csv.each do |line|
+      Object.create! line
+    end
+  end
+end
+```
+
+When file is downloaded, it is keeped in a temporary (`/tmp`) folder waiting to be parsed, using the options `tmp_dir` you change it:
+
+```
+class MyDataMigration
+  include DataMigrater::CSV
+
+  data_csv path: :s3, tmp_dir: '~'
+
+  def execute
+  # downloaded from `s3:bucket-name/my_data_migration.csv` and keeped at `~`
+  csv.each do |line|
+    Object.create! line
+  end
+end
+```
+
+#### Options
+
+- `bucket`: Bucket name;
+- `file`: File name;
+- `path`: `:s3` to indicate the S3 support;
+- `tmp_dir`: Directory where CSV will be keeped after download.
