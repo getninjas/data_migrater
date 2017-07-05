@@ -21,6 +21,10 @@ module DataMigrater
 
       private
 
+      def csv_bucket
+        csv_options.delete(:bucket) || 'data-migrater'
+      end
+
       def csv_dir
         csv_options.delete(:dir) || 'db/data_migrate/support/csv'
       end
@@ -41,8 +45,17 @@ module DataMigrater
         csv_options.delete(:tmp_dir) || '/tmp'
       end
 
+      def s3_credentials
+        csv_options.delete(:credentials) || {}
+      end
+
       def s3
-        DataMigrater::S3.new file: csv_file, tmp_dir: csv_tmp_dir
+        DataMigrater::S3.new(
+          credentials: s3_credentials,
+          bucket:      csv_bucket,
+          file:        csv_file,
+          tmp_dir:     csv_tmp_dir
+        )
       end
     end
 

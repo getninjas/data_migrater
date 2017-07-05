@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 RSpec.describe DataMigrater::S3, '.download' do
-  subject { described_class.new file: 'dummy.csv' }
+  subject { described_class.new bucket: 'data-migrater', file: 'dummy.csv', tmp_dir: '/tmp' }
 
   let!(:client)    { double(Aws::S3).as_null_object }
   let!(:file_open) { double(File).as_null_object }

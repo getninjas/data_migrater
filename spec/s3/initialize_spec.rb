@@ -9,10 +9,10 @@ RSpec.describe DataMigrater::S3, 'initialize' do
     allow(ENV).to receive(:[]).with('AWS_SECRET_ACCESS_KEY') { 'AWS_SECRET_ACCESS_KEY' }
   end
 
-  context 'when only mandatory param is given' do
-    subject { described_class.new file: 'dummy.csv' }
+  context 'when only mandatory params is given' do
+    subject { described_class.new bucket: 'data-migrater', file: 'dummy.csv', tmp_dir: '/tmp' }
 
-    it 'caches default values' do
+    it 'caches default values and uses exported envs' do
       expect(subject.instance_variable_get(:@bucket)).to  eq 'data-migrater'
       expect(subject.instance_variable_get(:@file)).to    eq 'dummy.csv'
       expect(subject.instance_variable_get(:@tmp_dir)).to eq '/tmp'
@@ -37,7 +37,17 @@ RSpec.describe DataMigrater::S3, 'initialize' do
 
   context 'when some credential is given' do
     subject do
-      described_class.new file: 'dummy.csv', credentials: { region: 'us-east-1' }
+      described_class.new(
+        bucket:  'data-migrater',
+        file:    'dummy.csv',
+        tmp_dir: '/tmp',
+
+        credentials: {
+          access_key_id:     'access_key_id',
+          region:            'region',
+          secret_access_key: 'secret_access_key'
+        }
+      )
     end
 
     it 'is used' do
