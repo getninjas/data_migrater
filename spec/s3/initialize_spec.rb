@@ -52,9 +52,9 @@ RSpec.describe DataMigrater::S3, 'initialize' do
 
     it 'is used' do
       expect(::Aws.config).to receive(:update).with(
-        access_key_id:     'AWS_ACCESS_KEY_ID',
-        region:            'us-east-1',
-        secret_access_key: 'AWS_SECRET_ACCESS_KEY'
+        access_key_id:     'access_key_id',
+        region:            'region',
+        secret_access_key: 'secret_access_key'
       )
 
       subject
