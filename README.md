@@ -207,9 +207,31 @@ class MyDataMigration
 end
 ```
 
+#### Credentials
+
+By default, when you use the S3 feature, the envs `ACCESS_KEY_ID`, `REGION` and `SECRET_ACCESS_KEY` will be used.
+If you do not want export it globally and need to pass it inside you class, just declare de `credentials` options:
+
+```
+class MyDataMigration
+  include DataMigrater::CSV
+
+  data_csv path: :s3, credentials: {
+    access_key_id:     'foo',
+    region:            'us-east-1',
+    secret_access_key: 'bar'
+  }
+
+  def execute
+    csv.each { |line| Object.create line }
+  end
+end
+```
+
 #### Options
 
 - `bucket`: Bucket name;
+- `credentials`: AWS credentials: `access_key_id`, `region` and `secret_access_key`;
 - `file`: File name;
 - `path`: `:s3` to indicate the S3 support;
 - `tmp_dir`: Directory where CSV will be keeped after download.
