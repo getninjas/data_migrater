@@ -76,7 +76,6 @@ class MyDataMigration
   include DataMigrater::CSV
 
   def execute
-    # parsed from `db/data_migrate/support/csv/my_data_migration.csv`
     csv.each do |line|
       Object.create! line
     end
@@ -93,7 +92,6 @@ class MyDataMigration
   data_csv path: '/tmp/objects.csv'
 
   def execute
-    # parsed from `/tmp/objects.csv`
     csv.each do |line|
       Object.create! line
     end
@@ -110,16 +108,11 @@ class MyDataMigration
   data_csv chunk_size: 2
 
   def execute
-    csv.each do |line|
-      # line:
-      #
-      # [
-      #   { first_name: 'Washington', last_name: 'Botelho' },
-      #   { first_name: 'Lucas'     , last_name: 'Souza' }
-      # ]
-
-      Object.create! line
-    end
+    # [
+    #   { first_name: 'Washington', last_name: 'Botelho' },
+    #   { first_name: 'Lucas'     , last_name: 'Souza' }
+    # ]
+    csv.each { |line| Object.create line }
   end
 end
 ```
@@ -141,7 +134,7 @@ end
 ```
 
 #### Options
-
+dum
 - `dir`: Directory where CSV is located;
 - `file`: File name;
 - `path`: Composition of `dir/file` when you want give a fully qualified path. Default: `db/data_migrate/support/csv/class_name.csv`.
@@ -157,20 +150,17 @@ For more CSV options, check the project [Smarter CSV](https://github.com/tilo/sm
 
 ## S3
 
-You can download your CSV directly from [Amazon S3](https://aws.amazon.com/s3) using the module `DataMigrater::S3`.
-You *must* keep the path as `:s3` to change the download from local by S3.
+You can download your CSV directly from [Amazon S3](https://aws.amazon.com/s3) using the module `DataMigrater::CSV` with some configs.
+You *must* keep the path as `:s3` to activate S3 feature.
 
 ```
 class MyDataMigration
-  include DataMigrater::S3
+  include DataMigrater::CSV
 
   data_csv path: :s3
 
   def execute
-    # downloaded from `s3:data-migrater/my_data_migration.csv`
-    csv.each do |line|
-      Object.create! line
-    end
+    csv.each { |line| Object.create line }
   end
 end
 ```
@@ -181,13 +171,10 @@ By default, the class name is used as the file name in `underscore` style: `my_d
 class MyDataMigration
   include DataMigrater::CSV
 
-  data_csv path: :s3, file: :file_name
+  data_csv path: :s3, file: 'custom-name.csv'
 
   def execute
-    # downloaded from `s3:data-migrater/file_name.csv`
-    csv.each do |line|
-      Object.create! line
-    end
+    csv.each { |line| Object.create line }
   end
 end
 ```
@@ -198,13 +185,10 @@ By default, the bucket name is `data-migrater`, to change it, just declare the `
 class MyDataMigration
   include DataMigrater::CSV
 
-  data_csv path: :s3, bucket: 'bucket-name'
+  data_csv path: :s3, bucket: 'custom-bucket'
 
   def execute
-    # downloaded from `s3:bucket-name/my_data_migration.csv`
-    csv.each do |line|
-      Object.create! line
-    end
+    csv.each { |line| Object.create line }
   end
 end
 ```
@@ -215,12 +199,10 @@ When file is downloaded, it is keeped in a temporary (`/tmp`) folder waiting to 
 class MyDataMigration
   include DataMigrater::CSV
 
-  data_csv path: :s3, tmp_dir: '~'
+  data_csv path: :s3, tmp_dir: '/Users/wbotelhos'
 
   def execute
-  # downloaded from `s3:bucket-name/my_data_migration.csv` and keeped at `~`
-  csv.each do |line|
-    Object.create! line
+    csv.each { |line| Object.create line }
   end
 end
 ```
