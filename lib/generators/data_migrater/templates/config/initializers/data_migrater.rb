@@ -2,4 +2,6 @@
 
 require 'data_migrater'
 
-DataMigrater::Migrator.new.migrate unless Rails.env.test?
+unless Rails.env.test? || ENV['DATA_MIGRATER'] == 'false'
+  DataMigrater::Migrator.new.migrate
+end
