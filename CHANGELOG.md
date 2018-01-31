@@ -1,3 +1,13 @@
+## v0.5.0
+
+### Fixes
+
+- Fix CSV and Logger variable conflict; [tmartinelli]
+
+### News
+
+- Adds S3 CSV file support;
+
 ## v0.4.0
 
 ### News
