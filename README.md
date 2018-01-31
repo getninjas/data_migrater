@@ -235,3 +235,11 @@ end
 - `file`: File name;
 - `path`: `:s3` to indicate the S3 support;
 - `tmp_dir`: Directory where CSV will be keeped after download.
+
+#### Skip Run
+
+You can use `ENV` to prevent Data Migrater to run. By default, `RAILS_ENV` as `test` already prevents it.
+
+```bash
+DATA_MIGRATER=false rails s
+```

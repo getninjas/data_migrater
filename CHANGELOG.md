@@ -1,3 +1,10 @@
+## v0.6.0
+
+### News
+
+- Adds `ENV['DATA_MIGRATER']` to controller the Data Migrater run;
+- Bump Ruby to 2.4.3.
+
 ## v0.5.0
 
 ### Fixes
