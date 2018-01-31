@@ -37,7 +37,7 @@ Next time your application run, all pending data migration will be executed.
 
 You can send your log to a file including the module `DataMigrater::Logger`.
 
-```
+```ruby
 class MyDataMigration
   include DataMigrater::Logger
 
@@ -49,7 +49,7 @@ end
 
 By default, the class name is used and the file goes to `log` folder. You can change it:
 
-```
+```ruby
 class MyDataMigration
   include DataMigrater::Logger
 
@@ -71,7 +71,7 @@ end
 
 You can parse CSV on the fly using the module `DataMigrater::CSV`.
 
-```
+```ruby
 class MyDataMigration
   include DataMigrater::CSV
 
@@ -85,7 +85,7 @@ end
 
 By default, the class name is used and the file is parsed from `db/data_migrate/support/csv` folder. You can change it:
 
-```
+```ruby
 class MyDataMigration
   include DataMigrater::CSV
 
@@ -101,7 +101,7 @@ end
 
 You can process a batch of items using the `chunk_size`:
 
-```
+```ruby
 class MyDataMigration
   include DataMigrater::CSV
 
@@ -119,7 +119,7 @@ end
 
 You can rename the keys inside the iterated data using the option `key_mapping`:
 
-```
+```ruby
 class MyDataMigration
   include DataMigrater::CSV
 
@@ -153,7 +153,7 @@ For more CSV options, check the project [Smarter CSV](https://github.com/tilo/sm
 You can download your CSV directly from [Amazon S3](https://aws.amazon.com/s3) using the module `DataMigrater::CSV` with some configs.
 You *must* keep the path as `:s3` to activate S3 feature.
 
-```
+```ruby
 class MyDataMigration
   include DataMigrater::CSV
 
@@ -167,7 +167,7 @@ end
 
 By default, the class name is used as the file name in `underscore` style: `my_data_migration.csv`. You can change it:
 
-```
+```ruby
 class MyDataMigration
   include DataMigrater::CSV
 
@@ -181,7 +181,7 @@ end
 
 By default, the bucket name is `data-migrater`, to change it, just declare the `bucket` options:
 
-```
+```ruby
 class MyDataMigration
   include DataMigrater::CSV
 
@@ -195,7 +195,7 @@ end
 
 When file is downloaded, it is keeped in a temporary (`/tmp`) folder waiting to be parsed, using the options `tmp_dir` you change it:
 
-```
+```ruby
 class MyDataMigration
   include DataMigrater::CSV
 
@@ -212,7 +212,7 @@ end
 By default, when you use the S3 feature, the envs `ACCESS_KEY_ID`, `REGION` and `SECRET_ACCESS_KEY` will be used.
 If you do not want export it globally and need to pass it inside you class, just declare de `credentials` options:
 
-```
+```ruby
 class MyDataMigration
   include DataMigrater::CSV
 
