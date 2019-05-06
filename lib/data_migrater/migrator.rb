@@ -7,34 +7,17 @@ module DataMigrater
     end
 
     def migrate
-      ActiveRecord::Base.transaction do
-        if execute?
-          data_migrations.each(&:execute)
-        else
-          pending_migrations.each do |migration|
-            puts "  #{migration.version} #{migration.name}"
-          end
+      return unless DataMigration.table_exists?
+
+      begin
+        ActiveRecord::Migration.check_pending!
+
+        ActiveRecord::Base.transaction do
+          @collection.migrations.each(&:execute)
         end
+      rescue ActiveRecord::PendingMigrationError
+        puts "DataMigrater stopped. Pending migrations need to executed!"
       end
-    end
-
-    private
-
-    def execute?
-      return false if pending_migrations.any?
-
-      DataMigration.table_exists? && data_migrations.any?
-    end
-
-    def data_migrations
-      @data_migrations ||= @collection.migrations
-    end
-
-    def pending_migrations
-      migrations_paths = ActiveRecord::Migrator.migrations_paths
-      migrator         = ActiveRecord::Migrator.open migrations_paths
-
-      @pending_migrations ||= migrator.pending_migrations
     end
   end
 end

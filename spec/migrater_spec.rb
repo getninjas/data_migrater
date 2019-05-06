@@ -102,10 +102,6 @@ describe DataMigrater::Migrator do
       end
 
       context 'executed' do
-        before do
-          allow_any_instance_of(ActiveRecord::Migrator).to receive(:pending_migrations) { [] }
-        end
-
         it 'runs the data migrations' do
           expect(data_migration).to receive :execute
 
