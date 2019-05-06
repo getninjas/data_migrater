@@ -2,7 +2,7 @@
 
 module DataMigrater
   class S3
-    require 'aws-sdk'
+    require 'aws-sdk-s3'
 
     def initialize(bucket:, credentials: {}, file:, tmp_dir:)
       @bucket      = bucket
