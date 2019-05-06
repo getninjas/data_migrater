@@ -1,3 +1,11 @@
+## v0.7.0
+
+### News
+
+- Bump aws-sdk dependency to v3
+- Bump Ruby version compatibilities
+- Rails 5.2 compatibility
+
 ## v0.6.0
 
 ### News
