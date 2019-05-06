@@ -19,13 +19,13 @@ Gem::Specification.new do |spec|
   spec.test_files  = Dir['spec/**/*']
   spec.version     = DataMigrater::VERSION
 
-  spec.add_dependency 'activerecord', '>= 4.1', '< 5.2'
+  spec.add_dependency 'activerecord', '>= 4.1', '< 6'
   spec.add_dependency 'aws-sdk-s3',   '~> 1'
-  spec.add_dependency 'railties',     '>= 4.1', '< 5.2'
+  spec.add_dependency 'railties',     '>= 4.1', '< 6'
   spec.add_dependency 'smarter_csv',  '~> 1.1'
 
   spec.add_development_dependency 'pry-byebug'
   spec.add_development_dependency 'rspec-rails'
   spec.add_development_dependency 'rubocop-rspec'
-  spec.add_development_dependency 'sqlite3', '~> 1.3.6'
+  spec.add_development_dependency 'sqlite3'
 end
