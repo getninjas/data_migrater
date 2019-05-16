@@ -4,9 +4,9 @@ module DataMigrater
   class S3
     require 'aws-sdk-s3'
 
-    def initialize(bucket:, credentials: {}, file:, tmp_dir:)
+    def initialize(bucket:, credentials:, file:, tmp_dir:)
       @bucket      = bucket
-      @credentials = credentials.reverse_merge(default_credentials)
+      @credentials = default_credentials.merge(credentials)
       @file        = file
       @tmp_dir     = tmp_dir
 
