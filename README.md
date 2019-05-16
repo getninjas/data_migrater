@@ -209,7 +209,7 @@ end
 
 #### Credentials
 
-By default, when you use the S3 feature, the envs `ACCESS_KEY_ID`, `REGION` and `SECRET_ACCESS_KEY` will be used.
+By default, when you use the S3 feature, the envs `ACCESS_KEY_ID`, `REGION` (default `us-east-1`) and `SECRET_ACCESS_KEY` will be used.
 If you do not want export it globally and need to pass it inside you class, just declare de `credentials` options:
 
 ```ruby
