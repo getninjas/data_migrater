@@ -5,12 +5,12 @@ require 'spec_helper'
 RSpec.describe DataMigrater::S3, 'initialize' do
   before do
     allow(ENV).to receive(:[]).with('AWS_ACCESS_KEY_ID') { 'AWS_ACCESS_KEY_ID' }
-    allow(ENV).to receive(:[]).with('AWS_REGION') { 'AWS_REGION' }
+    allow(ENV).to receive(:fetch).with('AWS_REGION', 'us-east-1') { 'AWS_REGION' }
     allow(ENV).to receive(:[]).with('AWS_SECRET_ACCESS_KEY') { 'AWS_SECRET_ACCESS_KEY' }
   end
 
   context 'when only mandatory params is given' do
-    subject { described_class.new bucket: 'data-migrater', file: 'dummy.csv', tmp_dir: '/tmp' }
+    subject { described_class.new bucket: 'data-migrater', credentials: {}, file: 'dummy.csv', tmp_dir: '/tmp' }
 
     it 'caches default values and uses exported envs' do
       expect(subject.instance_variable_get(:@bucket)).to  eq 'data-migrater'
