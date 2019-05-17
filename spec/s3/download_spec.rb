@@ -3,27 +3,39 @@
 require 'spec_helper'
 
 RSpec.describe DataMigrater::S3, '.download' do
-  subject { described_class.new bucket: 'data-migrater', credentials: {}, file: 'dummy.csv', tmp_dir: '/tmp' }
+  subject(:s3) { described_class.new options.merge(credentials: {}, tmp_dir: '/tmp') }
 
-  let!(:client)    { double(Aws::S3).as_null_object }
-  let!(:file_open) { double(File).as_null_object }
-  let!(:processor) { double.as_null_object }
-  let!(:temp_file) { double(File).as_null_object }
+  let!(:client)  { double('Aws::S3::Client').as_null_object }
+  let!(:options) { { bucket: 'data-migrater', key: 'dummy.csv' } }
 
-  before do
-    allow(Aws::S3::Client).to receive(:new) { client }
-    allow(File).to receive(:open).with('/tmp/dummy.csv', 'w+').and_yield temp_file
+  before { allow(Aws::S3::Client).to receive(:new) { client } }
+
+  context 'when file exists' do
+    let!(:file)      { double('File').as_null_object }
+    let!(:processor) { double('processor').as_null_object }
+
+    before { allow(File).to receive(:open).with('/tmp/dummy.csv', 'w+').and_yield file }
+
+    it 'downloads the csv file' do
+      expect(client).to receive(:get_object).with(options, target: file)
+
+      s3.download processor: processor
+    end
+
+    it 'returns the file content processed' do
+      expect(processor).to receive(:process).with(file).and_return :content
+
+      expect(s3.download(processor: processor)).to eq :content
+    end
   end
 
-  it 'downloads the csv file' do
-    expect(client).to receive(:get_object).with({ bucket: 'data-migrater', key: 'dummy.csv' }, target: temp_file)
+  context 'when file is not found' do
+    let!(:error) { Aws::S3::Errors::NotFound.new 'error', 'message' }
 
-    subject.download processor: processor
-  end
+    before { allow(client).to receive(:head_object).with(options).and_raise error }
 
-  it 'process the csv content with given processor' do
-    expect(processor).to receive(:process).with temp_file
-
-    subject.download processor: processor
+    it 'returns an empty array' do
+      expect(s3.download(processor: 'processor')).to eq []
+    end
   end
 end

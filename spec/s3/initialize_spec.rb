@@ -10,11 +10,11 @@ RSpec.describe DataMigrater::S3, 'initialize' do
   end
 
   context 'when only mandatory params is given' do
-    subject { described_class.new bucket: 'data-migrater', credentials: {}, file: 'dummy.csv', tmp_dir: '/tmp' }
+    subject { described_class.new bucket: 'data-migrater', credentials: {}, key: 'dummy.csv', tmp_dir: '/tmp' }
 
     it 'caches default values and uses exported envs' do
       expect(subject.instance_variable_get(:@bucket)).to  eq 'data-migrater'
-      expect(subject.instance_variable_get(:@file)).to    eq 'dummy.csv'
+      expect(subject.instance_variable_get(:@key)).to     eq 'dummy.csv'
       expect(subject.instance_variable_get(:@tmp_dir)).to eq '/tmp'
 
       expect(subject.instance_variable_get(:@credentials)).to eq(
@@ -39,7 +39,7 @@ RSpec.describe DataMigrater::S3, 'initialize' do
     subject do
       described_class.new(
         bucket:  'data-migrater',
-        file:    'dummy.csv',
+        key:     'dummy.csv',
         tmp_dir: '/tmp',
 
         credentials: {

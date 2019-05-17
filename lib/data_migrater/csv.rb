@@ -51,9 +51,9 @@ module DataMigrater
 
       def s3
         DataMigrater::S3.new(
-          credentials: s3_credentials,
           bucket:      csv_bucket,
-          file:        csv_file,
+          credentials: s3_credentials,
+          key:         csv_file,
           tmp_dir:     csv_tmp_dir
         )
       end

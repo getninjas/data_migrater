@@ -38,9 +38,9 @@ RSpec.describe '#data_csv' do
       Dummy.class_eval { data_csv path: :s3 }
 
       allow(DataMigrater::S3).to receive(:new).with(
-        credentials: {},
         bucket:      'data-migrater',
-        file:        'dummy.csv',
+        credentials: {},
+        key:         'dummy.csv',
         tmp_dir:     '/tmp'
       ) { double download: :result }
     end
