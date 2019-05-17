@@ -1,3 +1,9 @@
+## v0.8.0
+
+### News
+
+- Uses `us-east-1` as default region for S3 module.
+
 ## v0.7.0
 
 ### News
