@@ -8,9 +8,9 @@ module DataMigrater
 
     included do
       def csv(processor: ::SmarterCSV)
-        return s3.download(processor: processor) if csv_s3?
+        arguments = csv_s3? ? [s3.download] : [csv_path, csv_options]
 
-        processor.process csv_path, csv_options
+        processor.process(*arguments)
       end
 
       def csv_path

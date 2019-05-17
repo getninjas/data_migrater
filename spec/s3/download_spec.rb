@@ -10,22 +10,15 @@ RSpec.describe DataMigrater::S3, '.download' do
 
   before { allow(Aws::S3::Client).to receive(:new) { client } }
 
-  context 'when file exists' do
-    let!(:file)      { double('File').as_null_object }
-    let!(:processor) { double('processor').as_null_object }
+  context 'when file is found' do
+    let!(:file) { instance_double('File').as_null_object }
 
     before { allow(File).to receive(:open).with('/tmp/dummy.csv', 'w+').and_yield file }
 
-    it 'downloads the csv file' do
+    it 'downloads the file' do
       expect(client).to receive(:get_object).with(options, target: file)
 
-      s3.download processor: processor
-    end
-
-    it 'returns the file content processed' do
-      expect(processor).to receive(:process).with(file).and_return :content
-
-      expect(s3.download(processor: processor)).to eq :content
+      s3.download
     end
   end
 
@@ -35,7 +28,7 @@ RSpec.describe DataMigrater::S3, '.download' do
     before { allow(client).to receive(:head_object).with(options).and_raise error }
 
     it 'returns an empty array' do
-      expect(s3.download(processor: 'processor')).to eq []
+      expect(s3.download).to eq []
     end
   end
 end

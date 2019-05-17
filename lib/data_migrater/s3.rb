@@ -13,13 +13,11 @@ module DataMigrater
       ::Aws.config.update @credentials
     end
 
-    def download(processor:)
+    def download
       client.head_object options
 
       File.open(file_path, 'w+') do |file|
         client.get_object options, target: file
-
-        processor.process file
       end
     rescue Aws::S3::Errors::NotFound
       []

@@ -42,11 +42,13 @@ RSpec.describe '#data_csv' do
         credentials: {},
         key:         'dummy.csv',
         tmp_dir:     '/tmp'
-      ) { double download: :result }
+      ) { double download: :file }
     end
 
     it 'reads csv from s3' do
-      expect(Dummy.new.csv).to eq :result
+      expect(::SmarterCSV).to receive(:process).with(:file)
+
+      Dummy.new.csv
     end
   end
 end
