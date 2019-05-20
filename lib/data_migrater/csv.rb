@@ -19,6 +19,10 @@ module DataMigrater
         @csv_path ||= [csv_dir, csv_file].join('/')
       end
 
+      def csv_delete
+        s3.delete
+      end
+
       private
 
       def csv_bucket
@@ -50,7 +54,7 @@ module DataMigrater
       end
 
       def s3
-        DataMigrater::S3.new(
+        @s3 ||= DataMigrater::S3.new(
           bucket:      csv_bucket,
           credentials: s3_credentials,
           key:         csv_file,

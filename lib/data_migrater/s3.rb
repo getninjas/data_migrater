@@ -13,6 +13,10 @@ module DataMigrater
       ::Aws.config.update @credentials
     end
 
+    def delete
+      client.delete_object options
+    end
+
     def download
       client.head_object options
 
@@ -28,7 +32,7 @@ module DataMigrater
     private
 
     def client
-      Aws::S3::Client.new
+      @client ||= Aws::S3::Client.new
     end
 
     def default_credentials
