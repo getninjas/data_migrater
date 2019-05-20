@@ -18,6 +18,8 @@ module DataMigrater
 
       File.open(file_path, 'w+') do |file|
         client.get_object options, target: file
+
+        file 
       end
     rescue Aws::S3::Errors::NotFound
       []

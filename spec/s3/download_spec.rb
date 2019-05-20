@@ -20,6 +20,10 @@ RSpec.describe DataMigrater::S3, '.download' do
 
       s3.download
     end
+
+    it 'returns the file' do
+      expect(s3.download).to eq file
+    end
   end
 
   context 'when file is not found' do
