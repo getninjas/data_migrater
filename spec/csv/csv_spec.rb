@@ -30,23 +30,19 @@ RSpec.describe '#data_csv' do
     end
   end
 
-  context 'when path is about s3' do
+  context 'when provider is s3' do
     before do
       stub_const 'Dummy', Class.new
 
       Dummy.class_eval { include DataMigrater::CSV }
-      Dummy.class_eval { data_csv path: :s3 }
+      Dummy.class_eval { data_csv provider: :s3 }
 
-      allow(DataMigrater::S3).to receive(:new).with(
-        bucket:      'data-migrater',
-        credentials: {},
-        key:         'dummy.csv',
-        tmp_dir:     '/tmp'
-      ) { double download: :file }
+      allow(DataMigrater::S3).to receive(:new)
+        .with('data-migrater', {}, 'db/data_migrate/support/csv/dummy.csv').and_return double(download: true)
     end
 
     it 'reads csv from s3' do
-      expect(::SmarterCSV).to receive(:process).with(:file)
+      expect(::SmarterCSV).to receive(:process).with('db/data_migrate/support/csv/dummy.csv', {})
 
       Dummy.new.csv
     end

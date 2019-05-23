@@ -9,14 +9,10 @@ RSpec.describe '#csv_delete' do
     stub_const 'Dummy', Class.new
 
     Dummy.class_eval { include DataMigrater::CSV }
-    Dummy.class_eval { data_csv path: :s3 }
+    Dummy.class_eval { data_csv provider: :s3 }
 
-    allow(DataMigrater::S3).to receive(:new).with(
-      bucket:      'data-migrater',
-      credentials: {},
-      key:         'dummy.csv',
-      tmp_dir:     '/tmp'
-    ).and_return s3
+    allow(DataMigrater::S3).to receive(:new)
+      .with('data-migrater', {}, 'db/data_migrate/support/csv/dummy.csv').and_return s3
   end
 
   it 'delegates delete to s3 object' do

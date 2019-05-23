@@ -3,26 +3,24 @@
 require 'spec_helper'
 
 RSpec.describe DataMigrater::S3, '.download' do
-  subject(:s3) { described_class.new options.merge(credentials: {}, tmp_dir: '/tmp') }
+  subject(:s3) { described_class.new options[:bucket], {}, 'csv_path' }
 
   let!(:client)  { double('Aws::S3::Client').as_null_object }
-  let!(:options) { { bucket: 'data-migrater', key: 'dummy.csv' } }
+  let!(:options) { { bucket: 'data-migrater', key: 'csv_path' } }
 
   before { allow(Aws::S3::Client).to receive(:new) { client } }
 
   context 'when file is found' do
-    let!(:file) { instance_double('File').as_null_object }
-
-    before { allow(File).to receive(:open).with('/tmp/dummy.csv', 'w+').and_yield file }
-
     it 'downloads the file' do
-      expect(client).to receive(:get_object).with(options, target: file)
+      expect(client).to receive(:get_object).with(options.merge(response_target: 'csv_path'))
 
       s3.download
     end
 
-    it 'returns the file' do
-      expect(s3.download).to eq file
+    it 'returns the value of get object' do
+      expect(client).to receive(:get_object).with(options.merge(response_target: 'csv_path')).and_return :success
+
+      expect(s3.download).to eq :success
     end
   end
 

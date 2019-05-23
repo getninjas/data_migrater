@@ -4,11 +4,10 @@ module DataMigrater
   class S3
     require 'aws-sdk-s3'
 
-    def initialize(bucket:, credentials:, key:, tmp_dir:)
+    def initialize(bucket, credentials, csv_path)
       @bucket      = bucket
       @credentials = default_credentials.merge(credentials)
-      @key         = key
-      @tmp_dir     = tmp_dir
+      @csv_path    = csv_path
 
       ::Aws.config.update @credentials
     end
@@ -20,11 +19,7 @@ module DataMigrater
     def download
       client.head_object options
 
-      File.open(file_path, 'w+') do |file|
-        client.get_object options, target: file
-
-        file 
-      end
+      client.get_object options.merge(response_target: @csv_path)
     rescue Aws::S3::Errors::NotFound
       []
     end
@@ -43,12 +38,8 @@ module DataMigrater
       }
     end
 
-    def file_path
-      [@tmp_dir, @key].join('/')
-    end
-
     def options
-      { bucket: @bucket, key: @key }
+      { bucket: @bucket, key: @csv_path.split('/').last }
     end
   end
 end
