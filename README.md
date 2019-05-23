@@ -110,7 +110,7 @@ class MyDataMigration
   def execute
     # [
     #   { first_name: 'Washington', last_name: 'Botelho' },
-    #   { first_name: 'Lucas'     , last_name: 'Souza' }
+    #   { first_name: 'Vanessa'   , last_name: 'Queiroz' }
     # ]
     csv.each { |line| Object.create line }
   end
@@ -134,14 +134,14 @@ end
 ```
 
 #### Options
-dum
-- `dir`: Directory where CSV is located;
-- `file`: File name;
-- `path`: Composition of `dir/file` when you want give a fully qualified path. Default: `db/data_migrate/support/csv/class_name.csv`.
+
+- `dir`: Directory where CSV is located, by default `db/data_migrate/support/csv`;
+- `file`: File name, by default is the class name underscored: `my_data_migration.csv`;
+- `path`: Composition of `dir` + `/` + `file` when you want give a fully qualified path.
 
 ---
 
-##### CSV Options:
+##### CSV Options
 
 - `chunk_size`: Batch parse size;
 - `key_mapping`: Key name alias.
@@ -150,14 +150,13 @@ For more CSV options, check the project [Smarter CSV](https://github.com/tilo/sm
 
 ## S3
 
-You can download your CSV directly from [Amazon S3](https://aws.amazon.com/s3) using the module `DataMigrater::CSV` with some configs.
-You *must* keep the path as `:s3` to activate S3 feature.
+You can download your CSV directly from [Amazon S3](https://aws.amazon.com/s3) using the module `DataMigrater::CSV` with some configs. You *must* set `provider` as `:s3` to activate S3 feature.
 
 ```ruby
 class MyDataMigration
   include DataMigrater::CSV
 
-  data_csv path: :s3
+  data_csv bucket: 'my-bucket', provider: :s3
 
   def execute
     csv.each { |line| Object.create line }
@@ -165,49 +164,7 @@ class MyDataMigration
 end
 ```
 
-By default, the class name is used as the file name in `underscore` style: `my_data_migration.csv`. You can change it:
-
-```ruby
-class MyDataMigration
-  include DataMigrater::CSV
-
-  data_csv path: :s3, file: 'custom-name.csv'
-
-  def execute
-    csv.each { |line| Object.create line }
-  end
-end
-```
-
-By default, the bucket name is `data-migrater`, to change it, just declare the `bucket` options:
-
-```ruby
-class MyDataMigration
-  include DataMigrater::CSV
-
-  data_csv path: :s3, bucket: 'custom-bucket'
-
-  def execute
-    csv.each { |line| Object.create line }
-  end
-end
-```
-
-When file is downloaded, it is keeped in a temporary (`/tmp`) folder waiting to be parsed, using the options `tmp_dir` you change it:
-
-```ruby
-class MyDataMigration
-  include DataMigrater::CSV
-
-  data_csv path: :s3, tmp_dir: '/Users/wbotelhos'
-
-  def execute
-    csv.each { |line| Object.create line }
-  end
-end
-```
-
-#### Credentials
+### Credentials
 
 By default, when you use the S3 feature, the envs `ACCESS_KEY_ID`, `REGION` (default `us-east-1`) and `SECRET_ACCESS_KEY` will be used.
 If you do not want export it globally and need to pass it inside you class, just declare de `credentials` options:
@@ -216,7 +173,7 @@ If you do not want export it globally and need to pass it inside you class, just
 class MyDataMigration
   include DataMigrater::CSV
 
-  data_csv path: :s3, credentials: {
+  data_csv provider: :s3, credentials: {
     access_key_id:     'foo',
     region:            'us-east-1',
     secret_access_key: 'bar'
@@ -228,13 +185,11 @@ class MyDataMigration
 end
 ```
 
-#### Options
+#### S3 Options
 
-- `bucket`: Bucket name;
+- `bucket`: The bucket name. By default `data-migrater`.
 - `credentials`: AWS credentials: `access_key_id`, `region` and `secret_access_key`;
-- `file`: File name;
-- `path`: `:s3` to indicate the S3 support;
-- `tmp_dir`: Directory where CSV will be keeped after download.
+- `provider`: `:s3` to indicate the S3 provider;
 
 #### Skip Run
 
