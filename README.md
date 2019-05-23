@@ -185,6 +185,24 @@ class MyDataMigration
 end
 ```
 
+### CSV Delete
+
+You can delete the S3 file from your migration after process the CSV.
+
+```ruby
+class MyDataMigration
+  include DataMigrater::CSV
+
+  data_csv provider: :s3
+
+  def execute
+    csv.each { |line| Object.create line }
+
+    csv_delete
+  end
+end
+```
+
 #### S3 Options
 
 - `bucket`: The bucket name. By default `data-migrater`.

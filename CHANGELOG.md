@@ -1,8 +1,21 @@
-## v0.8.0
+## v1.0.0
+
+### Break
+
+- Removes the `tmp_dir` options, now the file will be download at `path` place.
+
+### Fixes
+
+- Do not raise error when S3 file does not exist;
 
 ### News
 
-- Uses `us-east-1` as default region for S3 module.
+- Uses `us-east-1` as default region for S3 module;
+- Adds `csv_delete` method to be able to delete the S3 file.
+
+### Updates
+
+- Uses new syntax of SDK S3.
 
 ## v0.7.0
 
