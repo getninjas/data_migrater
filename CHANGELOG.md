@@ -1,3 +1,14 @@
+## v1.1.0
+
+### Fixes
+
+- Does not raise error when file does not exist locally;
+- Does not try to delete a non existent file locally.
+
+### Updates
+
+- `csv_delete` now deletes the local file too.
+
 ## v1.0.0
 
 ### Break

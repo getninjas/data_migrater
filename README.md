@@ -187,7 +187,7 @@ end
 
 ### CSV Delete
 
-You can delete the S3 file from your migration after process the CSV.
+You can delete the S3 and local file from your migration after process the CSV.
 
 ```ruby
 class MyDataMigration

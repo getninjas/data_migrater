@@ -8,7 +8,9 @@ module DataMigrater
 
     included do
       def csv(processor: ::SmarterCSV)
-        s3.download if csv_options.delete(:provider) == :s3
+        s3.download if s3_provider?
+
+        return [] unless File.exist?(csv_path)
 
         processor.process csv_path, csv_options
       end
@@ -20,7 +22,9 @@ module DataMigrater
       end
 
       def csv_delete
-        s3.delete
+        s3.delete if s3_provider?
+
+        File.delete(csv_path) if File.exist?(csv_path)
       end
 
       private
@@ -41,12 +45,16 @@ module DataMigrater
         self.class.csv_options
       end
 
+      def s3
+        @s3 ||= DataMigrater::S3.new(csv_bucket, s3_credentials, csv_path)
+      end
+
       def s3_credentials
         csv_options.delete(:credentials) || {}
       end
 
-      def s3
-        @s3 ||= DataMigrater::S3.new(csv_bucket, s3_credentials, csv_path)
+      def s3_provider?
+        @s3_provider ||= csv_options.delete(:provider) == :s3
       end
     end
 
