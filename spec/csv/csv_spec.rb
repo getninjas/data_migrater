@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 RSpec.describe '#data_csv' do
-  context 'when path is not about s3' do
+  context 'when has no provider' do
     before do
       stub_const 'Dummy', Class.new
 
@@ -39,12 +39,33 @@ RSpec.describe '#data_csv' do
 
       allow(DataMigrater::S3).to receive(:new)
         .with('data-migrater', {}, 'db/data_migrate/support/csv/dummy.csv').and_return double(download: true)
+
+      allow(File).to receive(:exist?).and_return true
     end
 
     it 'reads csv from s3' do
       expect(::SmarterCSV).to receive(:process).with('db/data_migrate/support/csv/dummy.csv', {})
 
       Dummy.new.csv
+    end
+  end
+
+  context 'when file does not exist locally' do
+    before do
+      stub_const 'Dummy', Class.new
+
+      Dummy.class_eval { include DataMigrater::CSV }
+      Dummy.class_eval { data_csv dir: 'missing/path' }
+    end
+
+    it 'does not process' do
+      expect(::SmarterCSV).not_to receive(:process)
+
+      Dummy.new.csv
+    end
+
+    it 'returns an empty array' do
+      expect(Dummy.new.csv).to eq []
     end
   end
 end

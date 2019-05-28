@@ -10,6 +10,8 @@ module DataMigrater
       def csv(processor: ::SmarterCSV)
         s3.download if s3_provider?
 
+        return [] unless File.exist?(csv_path)
+
         processor.process csv_path, csv_options
       end
 
