@@ -24,7 +24,7 @@ module DataMigrater
       def csv_delete
         s3.delete if s3_provider?
 
-        File.delete csv_path
+        File.delete(csv_path) if File.exist?(csv_path)
       end
 
       private
