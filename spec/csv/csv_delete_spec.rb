@@ -16,7 +16,8 @@ RSpec.describe '#csv_delete' do
         .with('data-migrater', {}, 'db/data_migrate/support/csv/dummy.csv').and_return s3
     end
 
-    it 'delegates delete to s3 object' do
+    it 'delegates delete to s3 object and deletes de file' do
+      expect(File).to receive(:delete).with 'db/data_migrate/support/csv/dummy.csv'
       expect(s3).to receive(:delete)
 
       Dummy.new.csv_delete
@@ -31,7 +32,8 @@ RSpec.describe '#csv_delete' do
       Dummy.class_eval { data_csv }
     end
 
-    it 'does not delegates delete to s3 object' do
+    it 'does not delegates delete to s3 object and deletes the file' do
+      expect(File).to receive(:delete).with 'db/data_migrate/support/csv/dummy.csv'
       expect(DataMigrater::S3).not_to receive(:new)
 
       Dummy.new.csv_delete
