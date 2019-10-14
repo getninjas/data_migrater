@@ -32,8 +32,8 @@ module DataMigrater
 
     def default_credentials
       {
-        access_key_id:     ENV['AWS_ACCESS_KEY_ID'],
-        region:            ENV.fetch('AWS_REGION', 'us-east-1'),
+        access_key_id: ENV['AWS_ACCESS_KEY_ID'],
+        region: ENV.fetch('AWS_REGION', 'us-east-1'),
         secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
       }
     end

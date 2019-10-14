@@ -16,7 +16,7 @@ module DataMigrater
           @collection.migrations.each(&:execute)
         end
       rescue ActiveRecord::PendingMigrationError
-        puts "DataMigrater stopped. Pending migrations need to executed!"
+        puts 'DataMigrater stopped. Pending migrations need to executed!'
       end
     end
   end

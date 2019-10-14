@@ -8,7 +8,7 @@ describe DataMigrater::Collection do
   before do
     FileUtils.mkdir_p path
 
-    allow(Rails).to receive(:root) { '.' }
+    allow(Rails).to receive(:root).and_return('.')
   end
 
   after { FileUtils.rm_rf 'db' }

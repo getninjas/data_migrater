@@ -6,7 +6,7 @@ describe DataMigrater::Migrator do
   before do
     FileUtils.mkdir_p 'db/migrate'
 
-    allow(Rails).to receive(:root) { '.' }
+    allow(Rails).to receive(:root).and_return('.')
   end
 
   after do
@@ -36,7 +36,7 @@ describe DataMigrater::Migrator do
         let(:collection)     { double migrations: [data_migration] }
 
         before do
-          allow(DataMigration).to receive(:table_exists?) { false }
+          allow(DataMigration).to receive(:table_exists?).and_return(false)
         end
 
         it 'does not executes data migration' do
@@ -52,7 +52,7 @@ describe DataMigrater::Migrator do
 
           let(:collection) { double migrations: [] }
 
-          it { expect { subject.migrate }.not_to change { version.call } }
+          it { expect { subject.migrate }.not_to change(version, :call) }
         end
 
         context 'and has data migration on collection' do
@@ -77,7 +77,7 @@ describe DataMigrater::Migrator do
       it 'keeps the actual version' do
         begin
           subject.migrate
-        rescue
+        rescue StandardError
         end
 
         expect(version.call).to eq '21161023010203'
@@ -92,6 +92,7 @@ describe DataMigrater::Migrator do
         let(:next_migration) { "#{Rails.root}/db/migrate/#{next_version}_migration.rb" }
 
         before { FileUtils.touch next_migration }
+
         after  { FileUtils.rm next_migration }
 
         it 'does not run the data migrations' do

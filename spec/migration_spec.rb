@@ -64,11 +64,9 @@ describe DataMigrater::Migration do
         specify { expect { subject.execute }.to raise_error RuntimeError }
 
         it 'removes data migration object' do
-          begin
-            subject.execute
-          rescue
-            expect(DataMigration.exists?(version: version)).to eq false
-          end
+          subject.execute
+        rescue StandardError
+          expect(DataMigration.exists?(version: version)).to eq false
         end
       end
     end

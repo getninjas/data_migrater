@@ -4,14 +4,14 @@ require 'spec_helper'
 
 RSpec.describe '#data_logger' do
   context 'with :path' do
+    subject { Dummy.new }
+
     before do
       stub_const 'Dummy', Class.new
 
       Dummy.class_eval { include DataMigrater::Logger }
       Dummy.class_eval { data_logger path: 'custom.log' }
     end
-
-    subject { Dummy.new }
 
     it 'logs on the given path file with right content' do
       subject.logger.info 'done!'
@@ -23,14 +23,14 @@ RSpec.describe '#data_logger' do
   end
 
   context 'with no :path' do
+    subject { Dummy.new }
+
     before do
       stub_const 'Dummy', Class.new
 
       Dummy.class_eval { include DataMigrater::Logger }
       Dummy.class_eval { data_logger }
     end
-
-    subject { Dummy.new }
 
     it 'logs on log folder with class name with right content' do
       subject.logger.info 'done!'
@@ -42,13 +42,13 @@ RSpec.describe '#data_logger' do
   end
 
   context 'with no :data_logger' do
+    subject { Dummy.new }
+
     before do
       stub_const 'Dummy', Class.new
 
       Dummy.class_eval { include DataMigrater::Logger }
     end
-
-    subject { Dummy.new }
 
     it 'logs on log folder with class name with right content' do
       subject.logger.info 'done!'

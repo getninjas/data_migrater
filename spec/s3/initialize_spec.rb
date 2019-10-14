@@ -6,9 +6,9 @@ RSpec.describe DataMigrater::S3, 'initialize' do
   subject(:s3) { described_class.new 'data-migrater', credentials, 'dummy.csv' }
 
   before do
-    allow(ENV).to receive(:[]).with('AWS_ACCESS_KEY_ID') { 'AWS_ACCESS_KEY_ID' }
-    allow(ENV).to receive(:fetch).with('AWS_REGION', 'us-east-1') { 'AWS_REGION' }
-    allow(ENV).to receive(:[]).with('AWS_SECRET_ACCESS_KEY') { 'AWS_SECRET_ACCESS_KEY' }
+    allow(ENV).to receive(:[]).with('AWS_ACCESS_KEY_ID').and_return('AWS_ACCESS_KEY_ID')
+    allow(ENV).to receive(:fetch).with('AWS_REGION', 'us-east-1').and_return('AWS_REGION')
+    allow(ENV).to receive(:[]).with('AWS_SECRET_ACCESS_KEY').and_return('AWS_SECRET_ACCESS_KEY')
   end
 
   context 'when credentials is not given' do
