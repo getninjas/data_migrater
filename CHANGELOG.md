@@ -1,3 +1,10 @@
+## v1.2.0
+
+### Updates
+
+- Support Ruby 2.6.5;
+- Support Rails 6.
+
 ## v1.1.0
 
 ### Fixes
