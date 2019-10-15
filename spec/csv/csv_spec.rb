@@ -15,16 +15,16 @@ RSpec.describe '#data_csv' do
       expect(Dummy.new.csv).to eq [
         {
           first_name: 'Washington',
-          last_name:  'Botelho',
-          username:   'wbotelhos',
-          age:        32,
-          birthday:   '23/10/1984'
+          last_name: 'Botelho',
+          username: 'wbotelhos',
+          age: 32,
+          birthday: '23/10/1984'
         },
 
         {
           first_name: 'Lucas',
-          last_name:  'Souza',
-          username:   'lucasas'
+          last_name: 'Souza',
+          username: 'lucasas'
         }
       ]
     end

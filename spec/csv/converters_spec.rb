@@ -20,16 +20,16 @@ RSpec.describe '#converters' do
     expect(Dummy.new.csv).to eq [
       {
         first_name: 'Washington',
-        last_name:  'Botelho',
-        username:   'wbotelhos',
-        age:        32,
-        birthday:   Date.strptime('23/10/1984', '%d/%m/%y')
+        last_name: 'Botelho',
+        username: 'wbotelhos',
+        age: 32,
+        birthday: Date.strptime('23/10/1984', '%d/%m/%y')
       },
 
       {
         first_name: 'Lucas',
-        last_name:  'Souza',
-        username:   'lucasas'
+        last_name: 'Souza',
+        username: 'lucasas'
       }
     ]
   end

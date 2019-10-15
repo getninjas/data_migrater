@@ -13,17 +13,17 @@ RSpec.describe '#options' do
   it 'applies the options on csv gem' do
     expect(Dummy.new.csv).to eq [
       [{
-        first:     'Washington',
+        first: 'Washington',
         last_name: 'Botelho',
-        username:  'wbotelhos',
-        age:       32,
-        birthday:  '23/10/1984'
+        username: 'wbotelhos',
+        age: 32,
+        birthday: '23/10/1984'
       }],
 
       [{
-        first:     'Lucas',
+        first: 'Lucas',
         last_name: 'Souza',
-        username:  'lucasas'
+        username: 'lucasas'
       }]
     ]
   end
